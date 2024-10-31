@@ -1,0 +1,13 @@
+[ EXPRESSIONS ]
+<expr> ::= <primary_expr> | <binary_expr> [<operator> <expr>]*
+<primary_expr> ::= <double> | <function_call>
+<binary_expr> ::= <primary_expr> <operator> <primary_expr>
+<operator> ::= + | - | * | /
+
+[ FUNCTIONS ]
+<function_definition> ::= def <identifier> (<arguments>) { [<expr>]* }
+<funcion_call> ::= <identifier> (<arguments)
+
+[ VARIABLES ]
+<variable_declaration> ::= let <identifier> = <expr>
+<variable_set> ::= <identifier> = <expr>
