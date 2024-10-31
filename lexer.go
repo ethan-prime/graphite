@@ -40,9 +40,11 @@ func (lexer *Lexer) LoadInput(filename string) {
 func is_keyword(s string, token_type *TokenID) bool {
 	switch s {
 	case "def": 
-		*token_type = DEF; return true
+		*token_type = KEYW_DEF; return true
 	case "ret":
-		*token_type = RET; return true
+		*token_type = KEYW_RET; return true
+    case "dbl":
+        *token_type = KEYW_DBL; return true
 	}
 	return false
 }
@@ -81,8 +83,32 @@ func (lexer *Lexer) NextToken() Token {
 		return Token{id: EOF}
 	}
 
-	// collect double # todo : expand to collect ints as separate type
-	if unicode.IsDigit(current_char) || current_char == '.' {
+    if current_char == '(' {
+        lexer.index++; return Token{id: OPEN_PAREN}
+    } else if current_char == ')' {
+        lexer.index++; return Token{id: CLOSE_PAREN}
+    } else if current_char == '{' {
+        lexer.index++; return Token{id: OPEN_BRACE}
+    } else if current_char == '}' {
+        lexer.index++; return Token{id: CLOSE_BRACE}
+    } else if current_char == '+' {
+        lexer.index++; return Token{id: PLUS}
+    } else if current_char == '-' {
+        lexer.index++; return Token{id: MINUS}
+    } else if current_char == '/' {
+        lexer.index++; return Token{id: SLASH}
+    } else if current_char == '*' {
+        lexer.index++; return Token{id: ASTERIK}
+    } else if current_char == ',' {
+        lexer.index++; return Token{id: COMMA}
+    } else if current_char == '=' {
+        if (lexer.PeekChar() == '>') {
+            lexer.index += 2; return Token{id: ARROW}
+        } else {
+            lexer.index++; return Token{id: EQUAL}
+        }
+    } else if unicode.IsDigit(current_char) || current_char == '.' {
+        // collect a double
 		for (unicode.IsDigit(current_char) || current_char == '.') && (num_decimals <= 1) {
 			if current_char == '.' {
 				num_decimals++

@@ -5,8 +5,11 @@
 <operator> ::= + | - | * | /
 
 [ FUNCTIONS ]
-<function_definition> ::= def <identifier> (<arguments>) { [<expr>]* }
+<function_definition> ::= def <identifier> (<arguments>) => <type> { [<expr>]* }
 <funcion_call> ::= <identifier> (<arguments)
+<type> ::= dbl
+<arguments> ::= <argument> [, <argument]*
+<argument> ::= <type> <identifier>
 
 [ VARIABLES ]
 <variable_declaration> ::= let <identifier> = <expr>
