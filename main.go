@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/ethan-prime/vulcan/lexer"
 )
 
 func main() {
@@ -13,7 +14,7 @@ func main() {
 	fmt.Scan(&filename)
 
 	// load it into the lexer
-	lexer := Lexer{input: nil, line_number: 0, index: 0, show_debug: true}
+	lexer := lexer.Lexer{Input: nil, LineNumber: 1, Index: 0, ShowDebug: true}
 	lexer.LoadInput(filename)
 	lexer.Tokenize()
 }

@@ -1,4 +1,4 @@
-package main
+package tokens
 
 type TokenID int
 
@@ -25,13 +25,14 @@ const (
 )
 
 type Token struct {
-	id TokenID // unique id of token
-	value string // can hold values such as ints, doubles, identifiers, etc.
+	ID TokenID // unique id of token
+	Value string // can hold values such as ints, doubles, identifiers, etc.
+	LineNumber int // store line number for errors
 }
 
 // repr of a token. example: def -> "def"
 func (t Token) Repr() string {
-	switch t.id {
+	switch t.ID {
 	case EOF:
 		return "eof"
 	case KEYW_DEF:

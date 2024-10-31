@@ -1,16 +1,17 @@
 [ EXPRESSIONS ]
+<stmt> ::= <function_definition> | <function_call> | <variable_declaration> | <assignment>
 <expr> ::= <primary_expr> | <binary_expr> [<operator> <expr>]*
-<primary_expr> ::= <double> | <function_call>
+<primary_expr> ::= <double> | <function_call> | <identifier>
 <binary_expr> ::= <primary_expr> <operator> <primary_expr>
 <operator> ::= + | - | * | /
 
 [ FUNCTIONS ]
-<function_definition> ::= def <identifier> (<arguments>) => <type> { [<expr>]* }
-<funcion_call> ::= <identifier> (<arguments)
+<function_definition> ::= def <identifier> (<parameters>) => <type> { [<expr>]* }
+<funcion_call> ::= <identifier> (<expr> [, <expr>]*)
 <type> ::= dbl
-<arguments> ::= <argument> [, <argument]*
-<argument> ::= <type> <identifier>
+<parameters> ::= <argument> [, <argument]*
+<parameter> ::= <type> <identifier>
 
 [ VARIABLES ]
 <variable_declaration> ::= let <identifier> = <expr>
-<variable_set> ::= <identifier> = <expr>
+<assignment> ::= <identifier> = <expr>
