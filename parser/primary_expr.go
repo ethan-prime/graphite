@@ -3,7 +3,7 @@ package parser
 import (
 	"log"
 
-	"github.com/ethan-prime/vulcan/tokens"
+	"github.com/ethan-prime/graphite/tokens"
 )
 
 type PrimaryExpr interface {}
@@ -38,7 +38,7 @@ func (parser *Parser) ParsePrimaryExpr() (primary_expr PrimaryExprNode) {
 		parser.Advance()
 		primary_expr = PrimaryExprNode{VariableReference{cur_tok.Value}}
 	} else {
-		log.Fatalf("[Vulcan PARSER] ParsePrimaryExpr():\n\tExpected: Primary Expression\n\tReceived: %s\n", cur_tok.Repr())
+		log.Fatalf("[graphite PARSER] ParsePrimaryExpr():\n\tExpected: Primary Expression\n\tReceived: %s\n", cur_tok.Repr())
 	}
 	return
 }

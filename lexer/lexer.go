@@ -5,7 +5,7 @@ import (
 	"os"
 	"log"
 	"unicode"
-	"github.com/ethan-prime/vulcan/tokens"
+	"github.com/ethan-prime/graphite/tokens"
 )
 
 type Lexer struct {

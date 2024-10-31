@@ -2,7 +2,7 @@ package parser
 
 import (
 	"log"
-	"github.com/ethan-prime/vulcan/tokens"
+	"github.com/ethan-prime/graphite/tokens"
 )
 
 type Parser struct {

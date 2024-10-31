@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/ethan-prime/vulcan/lexer"
+	"github.com/ethan-prime/graphite/lexer"
 )
 
 func main() {
