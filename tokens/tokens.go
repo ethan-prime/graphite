@@ -22,6 +22,7 @@ const (
 	ASTERIK // *
 	SLASH // /
 	COMMA // ,
+	SEMICOLON // ;
 )
 
 type Token struct {

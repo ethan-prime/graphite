@@ -1,0 +1,7 @@
+def main(x, y) {
+    a+b+(c+d)*e*f+g
+    1 + 2
+    go(goated, 6)
+}
+
+main(5, 10)

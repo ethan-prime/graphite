@@ -1,12 +1,14 @@
 package parser
 
 import (
+	"fmt"
 	"log"
-	"github.com/ethan-prime/graphite/tokens"
 	"strconv"
+
+	"github.com/ethan-prime/graphite/tokens"
 )
 
-type PrimaryExpr interface {}
+type PrimaryExpr interface{}
 
 type PrimaryExprNode struct {
 	PrimaryExpr PrimaryExpr
@@ -23,12 +25,17 @@ type VariableReference struct {
 // parses a primary expression
 // <primary_expr> ::= <double> | <identifer_expr>
 func (parser *Parser) ParsePrimaryExpression() *ExprNode {
+	if parser.ShowDebug {
+		fmt.Println("parsing primary expression...")
+	}
 	cur_tok := parser.CurrentToken()
 	switch cur_tok.ID {
 	case tokens.DOUBLE:
 		return parser.ParseDoubleExpression()
 	case tokens.IDENTIFIER:
 		return parser.ParseIdentifierExpression()
+	case tokens.OPEN_PAREN:
+		return parser.ParseParenExpression()
 	default:
 		parser.ParserError("ParsePrimaryExpression", "Primary Expression", cur_tok.Repr(), cur_tok.LineNumber)
 	}
@@ -47,11 +54,12 @@ func (parser *Parser) ParseDoubleExpression() *ExprNode {
 	if err != nil {
 		log.Fatal(err)
 	}
-	
+
 	expr := &ExprNode{
 		Expr: &DoubleLiteral{Value: f},
 	}
 
+	parser.Advance()
 	return expr
 }
 
@@ -69,12 +77,13 @@ func (parser *Parser) ParseIdentifierExpression() *ExprNode {
 	var args []*ExprNode
 	parser.Advance()
 
+	cur_tok = parser.CurrentToken()
 	if cur_tok.ID != tokens.OPEN_PAREN {
 		// we just have a variable access
 		expr.Expr = &VariableReference{Identifier: identifier}
 		return expr
 	}
-	
+
 	parser.Advance()
 	cur_tok = parser.CurrentToken()
 

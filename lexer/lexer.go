@@ -96,15 +96,17 @@ func (lexer *Lexer) NextToken() tokens.Token {
     } else if current_char == '}' {
         lexer.Index++; return tokens.Token{ID: tokens.CLOSE_BRACE, LineNumber: lexer.LineNumber}
     } else if current_char == '+' {
-        lexer.Index++; return tokens.Token{ID: tokens.PLUS, LineNumber: lexer.LineNumber}
+        lexer.Index++; return tokens.Token{ID: tokens.PLUS, Value: "+", LineNumber: lexer.LineNumber}
     } else if current_char == '-' {
-        lexer.Index++; return tokens.Token{ID: tokens.MINUS, LineNumber: lexer.LineNumber}
+        lexer.Index++; return tokens.Token{ID: tokens.MINUS, Value: "-", LineNumber: lexer.LineNumber}
     } else if current_char == '/' {
-        lexer.Index++; return tokens.Token{ID: tokens.SLASH, LineNumber: lexer.LineNumber}
+        lexer.Index++; return tokens.Token{ID: tokens.SLASH, Value: "/", LineNumber: lexer.LineNumber}
     } else if current_char == '*' {
-        lexer.Index++; return tokens.Token{ID: tokens.ASTERIK, LineNumber: lexer.LineNumber}
+        lexer.Index++; return tokens.Token{ID: tokens.ASTERIK, Value: "*", LineNumber: lexer.LineNumber}
     } else if current_char == ',' {
         lexer.Index++; return tokens.Token{ID: tokens.COMMA, LineNumber: lexer.LineNumber}
+    } else if current_char == ';' {
+        lexer.Index++; return tokens.Token{ID: tokens.SEMICOLON, LineNumber: lexer.LineNumber}
     } else if current_char == '=' {
         if (lexer.PeekChar() == '>') {
             lexer.Index += 2; return tokens.Token{ID: tokens.ARROW, LineNumber: lexer.LineNumber}
@@ -160,7 +162,7 @@ func (lexer *Lexer) Tokenize() []tokens.Token {
 	lexer_tokens = append(lexer_tokens, next_token)
 
 	if lexer.ShowDebug {
-		fmt.Print(lexer_tokens)
+		fmt.Println(lexer_tokens)
 	}
 
 	return lexer_tokens

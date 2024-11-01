@@ -3,10 +3,11 @@ package main
 import (
 	"fmt"
 	"github.com/ethan-prime/graphite/lexer"
+	"github.com/ethan-prime/graphite/parser"
 )
 
 func main() {
-	fmt.Println("Welcome to Vulcan...")
+	fmt.Println("Welcome to Graphite...")
 	fmt.Printf("Filename> ")
 
 	// get filename input from user
@@ -16,5 +17,7 @@ func main() {
 	// load it into the lexer
 	lexer := lexer.Lexer{Input: nil, LineNumber: 1, Index: 0, ShowDebug: true}
 	lexer.LoadInput(filename)
-	lexer.Tokenize()
+
+	parser := parser.Parser{Tokens: lexer.Tokenize(), Index: 0, ShowDebug: true}
+	parser.ParseProgram()
 }

@@ -1,6 +1,7 @@
 [ EXPRESSIONS ]
 <stmt> ::= <function_definition> | <function_call> | <variable_declaration> | <assignment>
 <expr> ::= <primary_expr> | <binary_expr> [<operator> <expr>]*
+<top_level_expr> ::= <expr>
 <primary_expr> ::= <double> | <identifer_expr>
 <binary_expr> ::= <primary_expr> <operator> <primary_expr>
 <paren_expr> ::= ( <expr> )
@@ -8,7 +9,9 @@
 <operator> ::= + | - | * | /
 
 [ FUNCTIONS ]
-<function_definition> ::= def <identifier> ( <arguments> ) => <type> { [<expr>]* }
+<function_definition> ::= def <function_prototype> { <function_body> }
+<function_body> ::= <expr> [<expr>]*
+<function_prototype> ::= <identifier> ( <arguments> )
 <funcion_call> ::= <identifier> ( <arguments> )
 <type> ::= dbl
 <arguments> ::= <argument> [, <argument]*
