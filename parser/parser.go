@@ -11,6 +11,10 @@ type Parser struct {
 	show_debug bool
 }
 
+func (parser *Parser) ParserError(function_name string, expected string, received string, line_number int) {
+	log.Fatalf("[ graphite compiler ] parsing error @ %s():\n\tExpected: %s\n\tReceived: %s (line %d)\n", function_name, expected, received, line_number)
+}
+
 // advance the Parser to the next token
 func (parser *Parser) Advance() {
 	parser.index++
