@@ -1,12 +1,12 @@
 [ EXPRESSIONS ]
 <stmt> ::= <function_definition> | <function_call> | <variable_declaration> | <assignment>
-<expr> ::= <primary_expr> | <binary_expr> [<operator> <expr>]*
+<expr> ::= <primary_expr> | <binary_expr> [<Operator> <expr>]*
 <top_level_expr> ::= <expr>
 <primary_expr> ::= <double> | <identifer_expr>
-<binary_expr> ::= <primary_expr> <operator> <primary_expr>
+<binary_expr> ::= <primary_expr> <Operator> <primary_expr>
 <paren_expr> ::= ( <expr> )
 <identifer_expr> ::= <identifier> | <identifier> ( <parameters> )
-<operator> ::= + | - | * | /
+<Operator> ::= + | - | * | /
 
 [ FUNCTIONS ]
 <function_definition> ::= def <function_prototype> { <function_body> }

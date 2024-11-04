@@ -47,7 +47,7 @@ func (parser *Parser) ParseBinaryOpRHS(current_precedence int, LHS *ExprNode) *E
 			return LHS
 		}
 
-		// so we must have a binary operator
+		// so we must have a binary Operator
 		binop := cur_tok
 		parser.Advance()
 
@@ -60,7 +60,7 @@ func (parser *Parser) ParseBinaryOpRHS(current_precedence int, LHS *ExprNode) *E
 
 		// merge LHS and RHS
 		LHS = &ExprNode{
-			Expr: &BinaryExprNode{operator: binop.Value, LHS: LHS, RHS: RHS},
+			Expr: &BinaryExprNode{Operator: binop.Value, LHS: LHS, RHS: RHS},
 		}
 
 	}

@@ -29,14 +29,12 @@ func (parser *Parser) ParseProgram() {
 			parser.Advance()
 		case tokens.IDENTIFIER:
 			if parser.PeekToken().ID == tokens.OPEN_PAREN {
-				parser.ParseIdentifierExpression()
 				fmt.Println("parsed identifier expression (probably a function call)...")
 			} else {
 				parser.ParseTopLevelExpression()
 				fmt.Print("parsed top level expression...")
 			}
 		default:
-			parser.ParseTopLevelExpression()
 			fmt.Println("parsed top level expression")
 		}
 	}

@@ -9,12 +9,12 @@ var BinaryOpPrecedence = map[string]int{
 }
 
 type BinaryExprNode struct {
-	operator string
-	LHS *ExprNode
-	RHS *ExprNode
+	Operator string
+	LHS      *ExprNode
+	RHS      *ExprNode
 }
 
-// retrieves the precedence of a binary operator, -1 if it doesn't exist!
+// retrieves the precedence of a binary Operator, -1 if it doesn't exist!
 func (parser *Parser) OperatorPrecedence(binop string) int {
 	precedence, ok := BinaryOpPrecedence[binop]
 	if !ok {
