@@ -13,17 +13,6 @@ type ExprNode struct {
 	Expr Expr
 }
 
-// <top_level_expr> ::= <expr>
-func (parser *Parser) ParseTopLevelExpression() *Function {
-	expression := []*ExprNode{parser.ParseExpression()}
-	prototype := &FunctionProtoype{}
-
-	return &Function{
-		Protoype: prototype,
-		Body:     expression,
-	}
-}
-
 // parses an (arbitrarily long) expression
 func (parser *Parser) ParseExpression() *ExprNode {
 	if parser.ShowDebug {

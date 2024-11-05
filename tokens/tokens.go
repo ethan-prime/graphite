@@ -23,6 +23,7 @@ const (
 	SLASH // /
 	COMMA // ,
 	SEMICOLON // ;
+	KEYW_LET // let
 )
 
 type Token struct {
@@ -68,6 +69,8 @@ func (t Token) Repr() string {
 		return "/"
 	case COMMA:
 		return ","
+	case KEYW_LET:
+		return "let"
 	default:
 		return "**UNKNOWN TOKEN**"
 	}

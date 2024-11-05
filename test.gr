@@ -1,6 +1,5 @@
 def main(x, y) {
-    a+b+(c+d)*e*f+g
-    1 + 2
+    let x = a+b+(c+d)*e*f+g
     go(goated, 6)
 }
 

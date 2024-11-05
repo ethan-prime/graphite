@@ -6,6 +6,10 @@ import (
 	"github.com/ethan-prime/graphite/tokens"
 )
 
+type ProgramNode struct {
+    Stmts []Stmt
+}
+
 type Parser struct {
 	Tokens []tokens.Token // list of tokens from lexer
 	Index  int            // keep track of which token we're on
@@ -13,31 +17,19 @@ type Parser struct {
 }
 
 // top ::= definition | expression | ';'
-func (parser *Parser) ParseProgram() {
+func (parser *Parser) ParseProgram() *ProgramNode {
 	if parser.Tokens == nil {
 		log.Fatalf("Tokens not loaded to Parser.")
 	}
-	for {
-		switch parser.CurrentToken().ID {
-		case tokens.EOF:
-			fmt.Println("successfully parsed program!")
-			return
-		case tokens.KEYW_DEF:
-			parser.ParseFunctionDeclaration()
-			fmt.Println("parsed function declaration")
-		case tokens.SEMICOLON:
-			parser.Advance()
-		case tokens.IDENTIFIER:
-			if parser.PeekToken().ID == tokens.OPEN_PAREN {
-				fmt.Println("parsed identifier expression (probably a function call)...")
-			} else {
-				parser.ParseTopLevelExpression()
-				fmt.Print("parsed top level expression...")
-			}
-		default:
-			fmt.Println("parsed top level expression")
-		}
+
+    program_node := ProgramNode{}
+
+	for parser.CurrentToken().ID != tokens.EOF {
+		program_node.Stmts = append(program_node.Stmts, parser.ParseStatement())
 	}
+
+	fmt.Println("Successfully parsed program!")
+	return &program_node
 }
 
 func (parser *Parser) ParserError(function_name string, expected string, received string, line_number int) {
