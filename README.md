@@ -3,7 +3,6 @@
 
 ```
 test.gr
-
 ```
 ```c
 def add(x, y) {
@@ -17,12 +16,11 @@ def main() {
     ret 0
 }
 ```
-
-```
-test.ll
-```
 ```
 compiles to...
+```
+```
+test.ll
 ```
 ```c
 define double @add(double %x, double %y) {
