@@ -12,18 +12,19 @@ type StmtDefine struct {
 	Stmt
 	Identifier string
 	Typ        types.Type
-	Expr Expr
+	Expr ExprNode
+	HasExpr bool
 }
 
 type StmtAssign struct {
 	Stmt
 	Identifier string
-	Expr Expr
+	Expr ExprNode
 }
 
 type StmtReturn struct {
 	Stmt
-	ReturnExpr Expr
+	ReturnExpr ExprNode
 }
 
 type StmtFunctionCall struct {
@@ -43,9 +44,10 @@ type StmtExpression struct {
 
 type StmtIfThen struct {
 	Stmt
-	Condition Expr
+	Condition ExprNode
 	Then []Stmt
 	Else []Stmt
+	HasElse bool
 }
 
 func (parser *Parser) ParseStatement() Stmt {
@@ -54,7 +56,7 @@ func (parser *Parser) ParseStatement() Stmt {
 		f := parser.ParseFunctionDeclaration()
 		stmt_function_decl := StmtFunctionDeclaration{Function: *f}
 		fmt.Println("parsed function declaration")
-		return stmt_function_decl
+		return &stmt_function_decl
 	case tokens.SEMICOLON:
 		parser.Advance()
 	case tokens.KEYW_LET:
@@ -66,8 +68,8 @@ func (parser *Parser) ParseStatement() Stmt {
 	case tokens.IDENTIFIER:
 		if parser.PeekToken().ID == tokens.OPEN_PAREN {
 			fmt.Println("parsed identifier expression (probably a function call)...")
-			call := parser.ParseIdentifierExpression().Expr
-			return StmtFunctionCall{FunctionCall: call.(FunctionCall)}
+			call := parser.ParseIdentifierExpression().Expr.(*FunctionCall)
+			return &StmtFunctionCall{FunctionCall: *call}
 		} else if parser.PeekToken().ID == tokens.EQUAL {
 			fmt.Println("parsed an assignment stmt...")
 			return parser.ParseAssignment()
@@ -76,9 +78,9 @@ func (parser *Parser) ParseStatement() Stmt {
 		fmt.Println("parsed a return stmt...")
 		return parser.ParseReturn()
 	default:
-		parser.ParserError("ParseStatement", "a statment", parser.CurrentToken().Repr(), parser.CurrentToken().LineNumber)
+		parser.ParserError("ParseStatement", "a statement", parser.CurrentToken().Repr(), parser.CurrentToken().LineNumber)
 		panic("")
 	}
-	parser.ParserError("ParseStatement", "a statment", parser.CurrentToken().Repr(), parser.CurrentToken().LineNumber)
+	parser.ParserError("ParseStatement", "a statement", parser.CurrentToken().Repr(), parser.CurrentToken().LineNumber)
 	panic("")
 }

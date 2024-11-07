@@ -1,12 +1,10 @@
-def main(x, y) {
-    let x 
-    if x + 5 {
-        x = a+b+(c+d)*e*f+g
-    } else if x + 9 {
-        x = y
-    }
-    
-    go(goated, 6)
+def add(x, y) {
+    let z = x + y
+    z = z * z - x + y
+    ret z
 }
 
-main(5, 10)
+def main() {
+    add(5, 3)
+    ret 0
+}

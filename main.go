@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/ethan-prime/graphite/lexer"
 	"github.com/ethan-prime/graphite/parser"
+	"github.com/ethan-prime/graphite/codegen"	
 )
 
 func main() {
@@ -15,9 +16,11 @@ func main() {
 	fmt.Scan(&filename)
 
 	// load it into the lexer
-	lexer := lexer.Lexer{Input: nil, LineNumber: 1, Index: 0, ShowDebug: true}
-	lexer.LoadInput(filename)
+	l := lexer.Lexer{Input: nil, LineNumber: 1, Index: 0, ShowDebug: true}
+	l.LoadInput(filename)
 
-	parser := parser.Parser{Tokens: lexer.Tokenize(), Index: 0, ShowDebug: true}
-	parser.ParseProgram()
+	p := parser.Parser{Tokens: l.Tokenize(), Index: 0, ShowDebug: true}
+	program_node := p.ParseProgram()
+
+	codegen.ProgramCodeGen(*program_node)
 }

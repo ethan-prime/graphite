@@ -25,7 +25,7 @@ func (parser *Parser) ParseVariableDefinition() *StmtDefine {
 		return &StmtDefine{
 			Identifier: identifier,
 			Typ: types.Double,
-			Expr: nil,
+			HasExpr: false,
 		}
 	}
 
@@ -36,7 +36,8 @@ func (parser *Parser) ParseVariableDefinition() *StmtDefine {
 	return &StmtDefine{
         Identifier: identifier,
         Typ: types.Double,
-        Expr: expr,
+        Expr: *expr,
+		HasExpr: true,
     }
 }
 
@@ -60,6 +61,6 @@ func (parser *Parser) ParseAssignment() *StmtAssign {
 
 	return &StmtAssign{
         Identifier: identifier,
-        Expr: expr,
+        Expr: *expr,
     }
 }

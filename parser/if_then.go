@@ -4,7 +4,7 @@ import (
 	"github.com/ethan-prime/graphite/tokens"
 )
 
-func (parser *Parser) ParseIfThen() StmtIfThen {
+func (parser *Parser) ParseIfThen() *StmtIfThen {
 	if cur_tok := parser.CurrentToken(); cur_tok.ID != tokens.KEYW_IF {
 		parser.ParserError("ParseIfthen", "if", cur_tok.Repr(), cur_tok.LineNumber)
 	}
@@ -35,10 +35,11 @@ func (parser *Parser) ParseIfThen() StmtIfThen {
 	// we need to find out if this is an else or an else if
 	if cur_tok := parser.CurrentToken(); cur_tok.ID != tokens.KEYW_ELSE {
 		// return with a nil else field
-		return StmtIfThen{
-			Condition: cond,
+		return &StmtIfThen{
+			Condition: *cond,
 			Then: then_body,
 			Else: nil,
+			HasElse: false,
 		}
 	}
 	
@@ -69,9 +70,10 @@ func (parser *Parser) ParseIfThen() StmtIfThen {
 		parser.Advance()
 	}
 
-	return StmtIfThen{
-		Condition: cond,
+	return &StmtIfThen{
+		Condition: *cond,
 		Then: then_body,
 		Else: else_body,
+		HasElse: true,
 	}
 }

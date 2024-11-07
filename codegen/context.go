@@ -10,8 +10,8 @@ type Context struct {
 	*ir.Block
 	parent *Context
 	vars   map[string]value.Value
-	if_idx int
-	loop_idx int
+	if_idx *int
+	loop_idx *int
 }
 
 func NewContext(b *ir.Block) *Context {
@@ -19,8 +19,8 @@ func NewContext(b *ir.Block) *Context {
 		Block: b,
 		parent:   nil,
 		vars:     make(map[string]value.Value),
-		if_idx: 0,
-		loop_idx: 0,
+		if_idx: new(int),
+		loop_idx: new(int),
 	}
 }
 
@@ -31,7 +31,7 @@ func (c *Context) NewContext(b *ir.Block) *Context {
 	return ctx
 }
 
-func (c Context) lookupVariable(name string) value.Value {
+func (c *Context) lookupVariable(name string) value.Value {
 	if v, ok := c.vars[name]; ok {
 		return v
 	} else if c.parent != nil {
@@ -43,8 +43,14 @@ func (c Context) lookupVariable(name string) value.Value {
 }
 
 func (c *Context) HasTerminator() bool {
-	if c.Term != nil {
-		return true
+	return c.Term != nil
+}
+
+func GetFunc(mod *ir.Module, name string) *ir.Func {
+	for _, f := range mod.Funcs {
+		if f.GlobalIdent.GlobalName == name {
+			return f
+		}
 	}
-	return false
+	panic(fmt.Sprintf("[ graphite compiler ] function %s is not defined.", name))
 }

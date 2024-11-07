@@ -107,6 +107,6 @@ func (parser *Parser) ParseIdentifierExpression() *ExprNode {
 
 	parser.Advance() // eat the )
 
-	expr.Expr = FunctionCall{FunctionName: identifier, Args: args}
+	expr.Expr = &FunctionCall{FunctionName: identifier, Args: args}
 	return expr
 }

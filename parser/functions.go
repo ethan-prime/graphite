@@ -100,13 +100,15 @@ func (parser *Parser) ParseFunctionDeclaration() *Function {
 
 	parser.Advance()
 
+	fmt.Println(len(body))
+
 	return &Function{
 		Protoype: prototype,
 		Body:     body,
 	}
 }
 
-func (parser *Parser) ParseReturn() StmtReturn {
+func (parser *Parser) ParseReturn() *StmtReturn {
 	if cur_tok := parser.CurrentToken(); cur_tok.ID != tokens.KEYW_RET {
 		parser.ParserError("ParseFunctionPrototype", "ret", cur_tok.Repr(), cur_tok.LineNumber)
 	}
@@ -115,5 +117,5 @@ func (parser *Parser) ParseReturn() StmtReturn {
 
 	expr := parser.ParseExpression()
 
-	return StmtReturn{ReturnExpr: expr}
+	return &StmtReturn{ReturnExpr: *expr}
 }
