@@ -44,8 +44,8 @@ type StmtExpression struct {
 type StmtIfThen struct {
 	Stmt
 	Condition Expr
-	Then Stmt
-	Else Stmt
+	Then []Stmt
+	Else []Stmt
 }
 
 func (parser *Parser) ParseStatement() Stmt {
@@ -60,6 +60,9 @@ func (parser *Parser) ParseStatement() Stmt {
 	case tokens.KEYW_LET:
 		fmt.Println("parsed a variable declaration stmt...")
 		return parser.ParseVariableDefinition()
+	case tokens.KEYW_IF:
+		fmt.Println("parsing an if then stmt...")
+		return parser.ParseIfThen()
 	case tokens.IDENTIFIER:
 		if parser.PeekToken().ID == tokens.OPEN_PAREN {
 			fmt.Println("parsed identifier expression (probably a function call)...")

@@ -25,6 +25,7 @@ const (
 	SEMICOLON // ;
 	KEYW_LET // let
 	KEYW_IF // if
+	KEYW_ELSE // else
 )
 
 type Token struct {
@@ -72,6 +73,10 @@ func (t Token) Repr() string {
 		return ","
 	case KEYW_LET:
 		return "let"
+	case KEYW_IF:
+		return "if"
+	case KEYW_ELSE:
+		return "else"
 	default:
 		return "**UNKNOWN TOKEN**"
 	}

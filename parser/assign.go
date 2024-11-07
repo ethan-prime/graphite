@@ -22,7 +22,11 @@ func (parser *Parser) ParseVariableDefinition() *StmtDefine {
     parser.Advance()
 
     if token := parser.CurrentToken(); token.ID != tokens.EQUAL {
-		parser.ParserError("ParseVariableDefinition", "=", token.Repr(), token.LineNumber)
+		return &StmtDefine{
+			Identifier: identifier,
+			Typ: types.Double,
+			Expr: nil,
+		}
 	}
 
     parser.Advance()

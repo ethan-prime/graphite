@@ -1,5 +1,11 @@
 def main(x, y) {
-    let x = a+b+(c+d)*e*f+g
+    let x 
+    if x + 5 {
+        x = a+b+(c+d)*e*f+g
+    } else if x + 9 {
+        x = y
+    }
+    
     go(goated, 6)
 }
 
