@@ -24,6 +24,7 @@ const (
 	COMMA // ,
 	SEMICOLON // ;
 	KEYW_LET // let
+	KEYW_IF // if
 )
 
 type Token struct {

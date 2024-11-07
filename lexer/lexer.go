@@ -48,6 +48,8 @@ func is_keyword(s string, token_type *tokens.TokenID) bool {
         *token_type = tokens.KEYW_DBL; return true
 	case "let":
         *token_type = tokens.KEYW_LET; return true
+	case "if":
+        *token_type = tokens.KEYW_IF; return true
 	}
 	return false
 }
